@@ -1,16 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-  CdkDrag,
-  CdkDropList,
-} from '@angular/cdk/drag-drop';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
 
 type Exercise = {
   id: number;
@@ -24,16 +12,8 @@ type ExerciseWithQuantity = Exercise & {
 @Component({
   selector: 'app-test-create',
   templateUrl: './create.component.html',
-  styleUrl: './create.component.css',
   standalone: true,
-  imports: [
-    CdkDropList,
-    CdkDrag,
-    HttpClientModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-  ],
+  imports: [],
 })
 export class TestCreateComponent implements OnInit {
   exercises: ExerciseWithQuantity[] | undefined = undefined;
@@ -45,9 +25,7 @@ export class TestCreateComponent implements OnInit {
     },
   ];
 
-  httpClient = inject(HttpClient);
-
-  ngOnInit() {
+  async ngOnInit() {
     this.httpClient
       .get('/api/exercises?columns=id&columns=name')
       .subscribe((data) => {
@@ -58,23 +36,6 @@ export class TestCreateComponent implements OnInit {
           };
         });
       });
-  }
-
-  drop(event: CdkDragDrop<ExerciseWithQuantity[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
   }
 
   createTest() {

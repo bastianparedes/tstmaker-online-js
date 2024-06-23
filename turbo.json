@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
+  "tasks": {
     "dev": {
       "cache": false,
       "persistent": false
@@ -14,10 +14,6 @@
       "persistent": false
     },
     "test": {
-      "cache": false,
-      "persistent": false
-    },
-    "_install": {
       "cache": false,
       "persistent": false
     }

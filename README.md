@@ -1,4 +1,4 @@
-# Toggles created with Angular 17 and Nest
+# Tst maker created with Angular 17 and Nest
 
 ## URL
 https://tst-maker.bastianparedes.com

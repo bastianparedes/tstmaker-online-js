@@ -1,21 +1,14 @@
-import { eq } from 'drizzle-orm';
 import db from './';
 
 const getCampaignsForFrontend = async () => {
-  return (
-    await db.query.Campaign.findMany({
-      columns: {
-        id: true,
-        name: true,
-        requirements: true,
-        triggers: true,
-        variations: true
-      },
-      where: (campaign) => eq(campaign.status, 'active')
-    })
-  ).filter(
-    (campaign) => campaign.variations.length > 0 && campaign.triggers.length > 0
-  );
+  return await db.query.Exercise.findMany({
+    columns: {
+      id: true,
+      name: true,
+      code: true,
+      lastModifiedDate: true,
+    },
+  });
 };
 
 export { getCampaignsForFrontend };
