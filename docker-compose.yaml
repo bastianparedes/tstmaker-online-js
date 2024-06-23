@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST: "localhost"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345678"
+      POSTGRES_DB: "postgres"
+    volumes:
+      - ./apps/backend/api/db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    image: tst-maker/backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "database"
+    environment:
+      POSTGRES_HOST: "localhost"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345678"
+      POSTGRES_DB: "postgres"
+    volumes:
+      - /app/node_modules
+      - ./apps/backend:/app
+
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+    image: tst-maker/frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - /app/node_modules
+      - ./apps/frontend:/app

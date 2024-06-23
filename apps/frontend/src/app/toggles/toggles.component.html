@@ -1,0 +1,31 @@
+@if (apps; as apps) {
+  <table class="mx-auto mt-5">
+    <thead>
+      <tr class="text-left">
+        <th>App</th>
+        <th class="pl-5">Toggle</th>
+        <th class="pl-5">Is active</th>
+      </tr>
+    </thead>
+  <tbody>
+    @for (app of apps; track app.name) {
+      <tr>
+        <td>{{ app.name }}</td>
+      </tr>
+      @for (toggle of app.toggles; track toggle.name) {
+        <tr>
+          <td></td>
+          <td class="pl-5">
+            <app-toggle-name [appName]="app.name" [toggleName]="toggle.name" />
+          </td>
+          <td class="pl-5">
+            <app-toggle-value [appName]="app.name" [toggleName]="toggle.name" [value]="toggle.value" />
+          </td>
+        </tr>
+      }
+    }
+    </tbody>
+  </table>
+} @else {
+  <div>No Data</div>
+}
