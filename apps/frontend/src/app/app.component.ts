@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { TogglesComponent } from './toggles/toggles.component';
+import { RouterOutlet } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TogglesComponent],
+  imports: [RouterOutlet, MatIconModule],
   templateUrl: './app.component.html',
 })
-
-export class AppComponent {};
+export class AppComponent {}
