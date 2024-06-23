@@ -34,7 +34,6 @@ export class TrpcRouter {
         columns: {
           id: true,
           name: true,
-          code: true,
           lastModifiedDate: true,
         },
       });

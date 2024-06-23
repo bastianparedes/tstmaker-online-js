@@ -3,21 +3,25 @@
     <table>
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Last Modified</th>
+          <th class="pl-5 text-left" scope="col">ID</th>
+          <th class="pl-5 text-left" scope="col">Name</th>
+          <th class="pl-5 text-left" scope="col">Last Modified</th>
         </tr>
       </thead>
       <tbody>
         @for (exercise of this.exercises; track exercise.id) {
           <tr>
-            <td>
-              {{ exercise.id }}
+            <td class="pl-5 text-left">
+              <a href="/exercises/edit/{{ exercise.id }}">{{ exercise.id }}</a>
             </td>
-            <td>
+            <td class="pl-5 text-left">
               <a href="/exercises/edit/{{ exercise.id }}">{{
                 exercise.name
+              }}</a>
+            </td>
+            <td class="pl-5 text-left">
+              <a href="/exercises/edit/{{ exercise.id }}">{{
+                exercise.lastModifiedDate
               }}</a>
             </td>
           </tr>

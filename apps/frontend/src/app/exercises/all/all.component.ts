@@ -9,13 +9,6 @@ import { trpcClient } from '../../../trpc';
   imports: [],
 })
 export class ExercisesAllComponent implements OnInit {
-  displayedColumns = [
-    'id',
-    'name',
-    'description',
-    'last_modified_date',
-    'code',
-  ];
   exercises:
     | Awaited<ReturnType<typeof trpcClient.getExercises.query>>
     | undefined = undefined;
@@ -23,7 +16,19 @@ export class ExercisesAllComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {
-    const exercises = await trpcClient.getExercises.query();
-    this.exercises = exercises;
+    this.exercises = [
+      {
+        id: 1,
+        name: 'Primero',
+        lastModifiedDate: 'Sun Jun 23 2024',
+      },
+      {
+        id: 2,
+        name: 'Segundo',
+        lastModifiedDate: 'Sun Jun 23 2024',
+      },
+    ];
+    /* const exercises = await trpcClient.getExercises.query();
+    this.exercises = exercises; */
   }
 }
