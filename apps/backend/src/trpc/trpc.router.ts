@@ -12,23 +12,23 @@ export class TrpcRouter {
 
   appRouter = this.trpc.router({
     createExercise: this.trpc.procedure
-    .input(
-      z.object({
-        name: z.string(),
-        description: z.string(),
-        code: z.string(),
+      .input(
+        z.object({
+          name: z.string(),
+          description: z.string(),
+          code: z.string(),
+        }),
+      )
+      .query(async () => {
+        return await db.query.Exercise.findMany({
+          columns: {
+            id: true,
+            name: true,
+            code: true,
+            lastModifiedDate: true,
+          },
+        });
       }),
-    )
-    .query(async () => {
-      return await db.query.Exercise.findMany({
-        columns: {
-          id: true,
-          name: true,
-          code: true,
-          lastModifiedDate: true,
-        },
-      });
-    }),
     getExercises: this.trpc.procedure.query(async () => {
       return await db.query.Exercise.findMany({
         columns: {
@@ -58,10 +58,12 @@ export class TrpcRouter {
     createTest: this.trpc.procedure
       .input(
         z.object({
-          exercices: z.array(z.object({
-            id: z.number(),
-            quantity: z.number().positive().int()
-          }))
+          exercices: z.array(
+            z.object({
+              id: z.number(),
+              quantity: z.number().positive().int(),
+            }),
+          ),
         }),
       )
       .query(async () => {
