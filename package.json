@@ -9,9 +9,12 @@
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
-    "_install": "yarn install"
-
+    "_install": "cd apps/backend ; npm install ; cd ../frontend ; npm install"
   },
+  "workspaces": [
+    "apps/backend",
+    "apps/frontend"
+  ],
   "devDependencies": {
     "turbo": "^2.0.4"
   }
