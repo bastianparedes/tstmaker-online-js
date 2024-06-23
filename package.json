@@ -12,16 +12,6 @@
     "_install": "yarn install"
 
   },
-  "workspaces": {
-    "packages": [
-      "apps/*"
-    ],
-    "nohoist": [
-      "**/@ngstack/code-editor",
-      "**/monaco-editor",
-      "**/ngx-monaco-editor-v2"
-    ]
-  },
   "devDependencies": {
     "turbo": "^2.0.4"
   }
