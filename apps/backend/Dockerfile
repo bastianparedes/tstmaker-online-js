@@ -1,4 +1,4 @@
-FROM node:20.15.0
+FROM node:20.14.0
 
 WORKDIR /app
 
@@ -7,4 +7,4 @@ RUN npm i
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "dev" ]

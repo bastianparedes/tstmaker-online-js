@@ -1,8 +1,5 @@
-import { Component, OnInit, Input, inject } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
 import { EditorComponent } from '../common/editor/editor.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   FormControl,
   FormGroup,
@@ -10,25 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
-import { catchError, throwError } from 'rxjs';
-
-type Exercise = {
-  name: string;
-  description: string;
-  code: string;
-};
+import { trpcClient } from '../../../trpc';
 
 @Component({
   selector: 'app-new-exercise',
   standalone: true,
   imports: [
-    HttpClientModule,
-    MatInputModule,
-    MatFormFieldModule, // ¿no necesario?
     EditorComponent,
-    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
     MonacoEditorModule,
@@ -44,36 +30,31 @@ export class ExerciseEditComponent implements OnInit {
         description: FormControl<string | null>;
         code: FormControl<string | null>;
       }> = undefined;
-  httpClient = inject(HttpClient);
 
-  ngOnInit() {
-    this.httpClient
-      .get(
-        `/api/exercises/${this.id}?columns=name&columns=description&columns=code`
-      )
-      .pipe(
-        catchError(() => {
-          location.href = '/exercises';
-          return throwError(() => new Error('Element not found'));
-        })
-      )
-      .subscribe((data) => {
-        const typedData = data as Exercise;
-        this.exercise = new FormGroup({
-          name: new FormControl(typedData.name, [
-            Validators.required,
-            Validators.minLength(1),
-          ]),
-          description: new FormControl(typedData.description, [
-            Validators.required,
-            Validators.minLength(1),
-          ]),
-          code: new FormControl(typedData.code, [
-            Validators.required,
-            Validators.minLength(1),
-          ]),
-        });
-      });
+  async ngOnInit() {
+    const exercise = await trpcClient.getExercise.query({
+      id: Number(this.id),
+    });
+
+    if (exercise === undefined) {
+      location.href = '/exercises';
+      return;
+    }
+
+    this.exercise = new FormGroup({
+      name: new FormControl(exercise.name, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      description: new FormControl(exercise.description, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+      code: new FormControl(exercise.code, [
+        Validators.required,
+        Validators.minLength(1),
+      ]),
+    });
   }
 
   async save(event: SubmitEvent) {

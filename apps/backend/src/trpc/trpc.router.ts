@@ -39,10 +39,29 @@ export class TrpcRouter {
         },
       });
     }),
+    getExercise: this.trpc.procedure
+      .input(
+        z.object({
+          id: z.number(),
+        }),
+      )
+      .query(async ({ input }) => {
+        return await db.query.Exercise.findFirst({
+          columns: {
+            id: true,
+            name: true,
+            code: true,
+            description: true,
+          },
+          where: eq(schema.Exercise.id, input.id),
+        });
+      }),
     updateExercise: this.trpc.procedure
       .input(
         z.object({
           id: z.number(),
+          name: z.string(),
+          description: z.string(),
           code: z.string(),
         }),
       )
@@ -50,6 +69,8 @@ export class TrpcRouter {
         return await db
           .update(schema.Exercise)
           .set({
+            name: input.name,
+            description: input.description,
             code: input.code,
           })
           .where(eq(schema.Exercise.id, input.id))

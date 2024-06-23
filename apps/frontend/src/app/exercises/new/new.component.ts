@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { EditorComponent } from '../common/editor/editor.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   FormControl,
   FormGroup,
@@ -9,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 const initialCode = `
@@ -35,10 +32,7 @@ def fn():
   selector: 'app-new-exercise',
   standalone: true,
   imports: [
-    MatInputModule,
-    MatFormFieldModule, // ¿no necesario?
     EditorComponent,
-    MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
     MonacoEditorModule,

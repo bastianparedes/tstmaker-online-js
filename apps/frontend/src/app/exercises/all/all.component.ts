@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AllService } from './all.service';
 
-type Exercise = {
-  id: number;
-  name: string;
-  description: string;
-  last_modified_date: string;
-};
+import { trpcClient } from '../../../trpc';
 
 @Component({
   selector: 'app-exercises-all',
@@ -22,14 +16,14 @@ export class ExercisesAllComponent implements OnInit {
     'last_modified_date',
     'code',
   ];
-  exercises: Exercise[] | undefined = undefined;
+  exercises:
+    | Awaited<ReturnType<typeof trpcClient.getExercises.query>>
+    | undefined = undefined;
 
-  constructor(private service: AllService) {
-    this.service = service;
-  }
+  constructor() {}
 
   async ngOnInit() {
-    const exercises = await this.service.getExercises();
+    const exercises = await trpcClient.getExercises.query();
     this.exercises = exercises;
   }
 }
