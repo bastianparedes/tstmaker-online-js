@@ -3,13 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "description": "https://tst-maker.bastianparedes.com",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "npm@20.15.0",
   "scripts": {
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
-    "_install": "cd apps/backend ; npm install ; cd ../frontend ; npm install"
+    "_install": "cd apps/backend ; npm ci ; cd ../frontend ; npm ci"
   },
   "workspaces": [
     "apps/backend",

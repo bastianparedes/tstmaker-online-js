@@ -10,22 +10,26 @@ import {
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 const initialCode = `
-def fn():
-  n1 = Rational(1, 2)
-  n2 = Rational(7, 5)
+const rational_1 = new Rational(1, 2);
+const rational_2 = new Rational(7, 5);
 
-  return {
-    comparator: {
-
-    },
-    alterantives: {
-      'alternative_1': Rational(n1.get_numerator() + n2.get_numerator(), n1.get_denominator() + n2.get_denominator()),
-      'alternative_2': Rational(n1.get_numerator() + n2.get_denominator(), n1.get_denominator() + n2.get_numerator()),
-      'alternative_3': Rational(n1.get_denominator() + n2.get_numerator(), n1.get_numerator() + n2.get_denominator()),
-      'alternative_4': n1 * n2,
-      'alternative_5': n1 * n2 ** (-1)
-    }
+return {
+  comparator: {
+    'alternative_1': new Rational(n1.getNumerator() + n2.getNumerator(), n1.getDenominator() + n2.getDenominator()),
+    'alternative_2': new Rational(n1.getNumerator() + n2.getDenominator(), n1.getDenominator() + n2.getNumerator()),
+    'alternative_3': new Rational(n1.getDenominator() + n2.getNumerator(), n1.getNumerator() + n2.getDenominator()),
+    'alternative_4': rational_1 * rational_2,
+    'alternative_5': rational_1 * rational_2 ** (-1)
+  },
+  alterantives: {
+    'alternative_1': \`\${new Rational(n1.getNumerator() + n2.getNumerator(), n1.getDenominator() + n2.getDenominator())}\`,
+    'alternative_2': \`\${new Rational(n1.getNumerator() + n2.getDenominator(), n1.getDenominator() + n2.getNumerator())}\`,
+    'alternative_3': \`\${new Rational(n1.getDenominator() + n2.getNumerator(), n1.getNumerator() + n2.getDenominator())}\`,
+    'alternative_4': \`\${rational_1 * rational_2}\`,
+    'alternative_5': \`\${rational_1 * rational_2 ** (-1)}\`
   }
+};
+
 `.trim();
 
 @Component({

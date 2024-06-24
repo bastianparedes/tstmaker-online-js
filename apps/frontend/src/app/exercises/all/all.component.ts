@@ -28,7 +28,7 @@ export class ExercisesAllComponent implements OnInit {
         lastModifiedDate: 'Sun Jun 23 2024',
       },
     ];
-    /* const exercises = await trpcClient.getExercises.query();
-    this.exercises = exercises; */
+    const exercises = await trpcClient.getExercises.query();
+    this.exercises = exercises;
   }
 }
