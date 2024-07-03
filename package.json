@@ -5,16 +5,11 @@
   "description": "https://tst-maker.bastianparedes.com",
   "packageManager": "npm@20.15.0",
   "scripts": {
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix",
-    "test": "turbo run test",
-    "_install": "cd apps/backend ; npm ci ; cd ../frontend ; npm ci"
+    "dev": "hellbell run dev",
+    "lint": "hellbell run lint",
+    "lint:fix": "hellbell run lint:fix",
+    "test": "hellbell run test"
   },
-  "workspaces": [
-    "apps/backend",
-    "apps/frontend"
-  ],
   "devDependencies": {
     "turbo": "^2.0.4"
   }

@@ -1,0 +1,19 @@
+workspaces:
+
+  backend:
+    path: ./apps/backend
+    tasks:
+      - install: npm install
+      - ci: npm ci
+      - dev: npm run dev
+      - lint: npm run lint
+      - lint:fix: npm run lint:fix
+
+  frontend:
+    path: ./apps/frontend
+    tasks:
+      - install: npm install
+      - ci: npm ci
+      - dev: npm run dev
+      - lint: npm run lint
+      - lint:fix: npm run lint:fix
